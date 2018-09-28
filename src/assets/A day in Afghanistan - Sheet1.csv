@@ -1,0 +1,33 @@
+start time,end time,location,lat,lon,deaths,injured,description
+01:00:00,07:00:00,"Takhar province, Dasht-e Qala District",37.15397,69.432276,2,2,"Taliban attack on police facility at the border, Taliban capitred the post in the port"
+02:00:00,-,"Nimroz province, Chakhansur district",31.197644,62.110757,7,1,Taliban attack on national police checkpoint
+05:40:00,-,"Helmand, Sangin District",32.070525,64.851396,0,0,Heavy and light weapons firing at district centre – Insurgent firing at patrol personnel in highway
+06:45:00,07:40:00,"Ghazni province, Qara Bagh District",33.191495,68.088541,0,0,Insurgents heavy and light weapons firing at Afghan national police
+07:30:00,08:50:00,"Paktika province, Mata Khan District",33.255121,68.959464,3,0,Insurgents ambush Afghan local police personnel who were on their way to their check point in Sharan areas
+09:20:00,-,"Logar province, Mohammad Agha district",34.207636,69.092035,0,1,Taliban attack on Afghan Civil order police in 
+09:30:00,-,"Baghlan province, Nahrin District",36.053455,69.109494,1,2,Insurgent attack on police
+10:00:00,12:00:00,"Nimroz province, Delaram district)",32.164259,63.424201,2,0,2 separate incidents – assasinations
+10:30:00,-,Ghazni highway,33.544324,68.417222,0,0,Insurgents fire weapons at ANP checkpoint
+10:45:00,14:15:00,"Paktia province,Chamkani District",33.802043,69.832857,0,1,Insurgents fire at police chekpoints 
+10:50:00,13:45:00,"Nangarhar province, Hesarak District",34.290038,69.883902,0,0,"Insurgents fire over ANP, ALP and ANA check points"
+11:20:00,-,"Logar province, Charkh district",33.797058,68.934535,12,6,"As a result of clashes between two Taliban groups, one under the command of Mullah Naim and the other to Mullah Farid, around 11:30 am in Charkh district, 12 Taliban fighters under Mullah Naim’s command was killed and six fighters under Mullah Farid’s command was injured"
+11:30:00,12:00:00,"Laghman province, Alishing District",34.783526,70.107906,0,1,Insurgent firing over ALP checkpoints
+11:35:00,13:40:00,"Ghazni province, Andar District",33.316672,68.450051,0,0,INS conducted heavy and light weapons firing over DHQ
+11:45:00,15:30:00,"Ghazni province, Andar District",33.316672,68.450051,0,0,INS conducted heavy and light weapons firing over ANA Chahar Diwar CP in the mentioned DC areas
+12:00:00,-,"Kabul, Istalif District",34.840049,68.999188,1,0,Dead body found
+12:10:00,-,"Kunar province, Manoki District",34.999806,70.97109,0,0,Improvised explosive device that was placed by insurgents detonated in Tarly
+14:00:00,16:30:00,"Ghazni province, Ab Band District",32.87218,68.133739,2,3,"Insurgents fire over ANP, ALP and ATM (?) patrol personnel"
+14:00:00,-,"Helmand province, Grishk District",31.825426,64.55914,4,0,RS (?) airstrike during ground operation
+14:10:00,16:10:00,"Kunar province, Manoki District",34.999806,70.97109,0,0,Kunar police headquarters reported: radio controlled improvised explosive device detonated
+14:30:00,-,"Nangarhar province, Manugai District",34.999806,70.97109,0,1,Radio-controlled IED detonated near 'VR' (?) site
+14:30:00,-,"Logar province, Pul e Alam district",34.006067,69.009277,0,0,Clash between Taliban and Afghan security focres.
+14:50:00,16:00:00,"Wardak province, Sayed Abad District",33.959836,68.810239,0,1,Insurgents' heavy and light weapons firing over transportation brigade convoy
+15:00:00,-,"Ghazni province, Delaram district",32.164078,63.423815,0,5,"Altercation between police and civilians, after police tried to take civilians to work with them on something by force."
+16:30:00,17:30:00,"Logar province, Muhammad Agha District",34.214464,69.100099,0,1,Insurgents ambushed ANCOP personnel moving from check point to district centre (civil order convoy)
+20:00:00,-,"Nimroz province, Zaranj city",30.959993,61.853281,1,0,"Insurgents attacked over ANP, ALP and ANA joint checkpoints"
+22:00:00,03:30:00,"Uruzgan province, Khas District",32.938463,66.674865,105,55,"INS attacked over ANP, ALP and ANA joint CPs in Sakhi Village of the mentioned District 30 June 18. The battle ended at 0330L, as a result (05) ANP and (05) ANA WIA, during the conflict, and as an effect of RS airstrike, (100) INS Killed and wounded, (50) different types of weapons seized by ANSF."
+23:00:00,-,"Nimroz province, Khashrod district",31.943391,63.094112,3,2,Taliban militants attacked a checkpost
+23:00:00,-,"Khogyani district, Nangarhar province",34.186319,70.171692,2,0,"Anti-government militants attacked high school, killing guard and setting fire to library and laboratory. Planted mines inside classes."
+mid-morning,-,"Khost province, Zazai Maidan",33.637313,70.110989,10,0,"Clash between civilians, Taliban and Afghan security forces. Civilians had picked up weapons in support of the security forces, but were killed by fire from Afghan security forces."
+-,-,"Ghazni province, Andar district",33.317598,68.4497,4,0,Clash between Taliban and police
+-,-,"Farah province, Bala Buluk district",32.829741,62.732249,4,4,Afghan airforce airstrike

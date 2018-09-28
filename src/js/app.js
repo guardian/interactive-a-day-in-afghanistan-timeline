@@ -1,5 +1,9 @@
-import * as d3 from 'd3'
+import * as d3B from 'd3'
 import * as d3Select from 'd3-selection'
+import * as d3geo from 'd3-geo'
+import * as topojson from 'topojson'
+
+let d3 = Object.assign({}, d3B, d3geo);
 
 const isMobile = window.matchMedia('(max-width: 600px)').matches
 
@@ -17,9 +21,28 @@ let events = [];
 
 let padding = {top:0,right:5,bottom:0,left:5};
 
-d3.csv('<%= path %>/assets/A day in Afghanistan - Sheet1.csv').then(function(data)
+let tLineYpos = 0;
+
+let locatorWidth = 200;
+let locatorHeight = 200;
+
+Promise.all([
+    d3.json("https://interactive.guim.co.uk/docsdata-test/13Rw2TmPSOvE8Q_PfXRQglPo5ic2_YmqmCTQtMGJCYx4.json"),
+    d3.json("../assets/world-simple.json")
+    ])
+.then(ready)
+
+
+
+function ready(arr)
 {
-    d3.map(data, function(row){
+
+    let data = arr[0]
+    let world = arr[1]
+
+    console.log(world)
+
+    d3.map(data.sheets.Sheet1, function(row){
        let eventTime = new Date();
        eventTime.setHours(row['start time'].split(':')[0])
        eventTime.setMinutes(row['start time'].split(':')[1])
@@ -32,11 +55,11 @@ d3.csv('<%= path %>/assets/A day in Afghanistan - Sheet1.csv').then(function(dat
 
     makeKeyPoints();
 
-    makeDescriptions();
+    makeLocator(world)
     
     window.requestAnimationFrame(step);
 
-})
+}
 
 function makeGrid()
 {
@@ -119,23 +142,23 @@ function makeKeyPoints()
     })
 }
 
-function makeDescriptions()
+
+
+function makeLocator(world)
 {
-    let circles = d3.selectAll('.time-spot').nodes();
+    let geojson = topojson.feature(world, world.objects.ne_10m_admin_0_map_subunits);
+    let afghanistan = geojson.features.find((country) => d3.geoContains(country, [66.600337,34.237265]));
+    let mapProjetion = d3.geoMercator().fitSize([locatorWidth, locatorHeight], afghanistan);
+    let mapPath = d3.geoPath().projection(mapProjetion);
 
-    let selectedCircles = circles.filter(c => c.getAttribute('class').indexOf('selected') != -1);
+    d3.select(".locator-map")
+    .append("path")
+    .datum(afghanistan)
+    .attr("d", mapPath)
+    .attr('fill', '#F6F6F6');
 
-    selectedCircles.map(function(circle){
-
-        let cName = circle.getAttribute('class').split(' ')[2];
-        let topPosition = circle.getBoundingClientRect().top ;
-
-        d3.select('.int-content').append('div')
-        .attr('class', 'description ' + cName)
-        .style('top', topPosition - Math.abs(circles[0].getBoundingClientRect().top) - 100 + 'px')
-        .html('description ' + cName);
-    })
 }
+
 
 function step()
 {
@@ -161,36 +184,50 @@ function step()
 
     let visible = circles.filter( c => Math.floor(c.getBoundingClientRect().top) <= Math.floor(window.innerHeight /2))
     let topCircle = visible.slice(-1)[0];
+    let currentCircle = topCircle.getAttribute('class');
+    let description = d3.select('.description').node();
+    
 
     if(topCircle)
     {
-        let currentCircle = topCircle.getAttribute('class');
-        d3.select('.interactive-top-bar').html(currentCircle);
+        //d3.select('.interactive-top-bar').html(currentCircle);
 
         d3.selectAll('.time-spot')
         .attr('r', 3)
 
         topCircle.setAttribute('r', 7);
 
-        let cName = currentCircle.split(" ")[2];
-        let topDescription = d3.select('.description.' + cName);
+        if(currentCircle.indexOf('selected') != -1){
 
-        if(currentCircle.indexOf('selected')!=-1)
-        {
-            
-            topDescription.attr('class', 'description selected ' + cName)
+
+            let tline = d3.select('.tline').node();
+
+            tLineYpos = tline.getBoundingClientRect().top;
+
+            if(tLineYpos < 0){
+                tLineYpos =  Math.abs(tLineYpos);
+            }
+            else{
+                tLineYpos = tLineYpos - (tLineYpos * 2);
+            }
+
+            let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - description.getBoundingClientRect().height / 2;
+
+            description.setAttribute('class', 'description selected');
+            description.setAttribute('style', 'top:' + marginTop +'px');
+
+            //d3.select('.description').html('<p>a;ksdjnkajnsc;kajns;dkcjna;ksjndc;kajsnc;kjansd;kjcn;akjsnd;cjkn;ajknsd;cjkn;ajksdnc;kna</p>');
+           
         }
-        else
-        {
-            topDescription.attr('class', 'description ' + cName)
+        else{
+            description.setAttribute('class', 'description');
         }
-
     }
-    else {
-        let currentCircle = circles[0].getAttribute('class')
-        d3.select('.interactive-top-bar').html(currentCircle);
+   /* else {
+        //currentCircle = circles[0].getAttribute('class')
+        //d3.select('.interactive-top-bar').html(currentCircle);
 
-    }
+    }*/
 
 	window.requestAnimationFrame(step);
 }

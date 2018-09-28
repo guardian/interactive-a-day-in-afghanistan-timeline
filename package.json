@@ -48,6 +48,8 @@
     },
     "dependencies": {
         "d3": "^5.7.0",
+        "d3-geo": "^1.11.1",
+        "d3-queue": "^3.0.7",
         "gulp-rename": "^1.2.2",
         "gulp-replace": "^0.6.1",
         "mustache": "^2.3.0",
@@ -55,6 +57,7 @@
         "request": "^2.85.0",
         "request-promise": "^4.2.2",
         "require-uncached": "^1.0.3",
+        "topojson": "^3.0.2",
         "unfetch": "^3.0.0"
     }
 }

@@ -48,7 +48,7 @@ function ready(arr)
        eventTime.setMinutes(row['start time'].split(':')[1])
        eventTime.setSeconds(0);
 
-       events.push({eventTime:eventTime, deaths:+row.deaths, injured:+row.injured, lat:row.lat, lon:row.lon, description:row.description})
+       events.push({location: row.location, eventTime:eventTime, deaths:+row.deaths, injured:+row.injured, lat:row.lat, lon:row.lon, description:row.description})
     })
 
     makeGrid();
@@ -216,14 +216,17 @@ function step()
             description.setAttribute('class', 'description selected');
             description.setAttribute('style', 'top:' + marginTop +'px');
 
-            let texts = d3.selectAll('.description p').nodes();
+            let headline = d3.select('.description h3').node();
+            let text = d3.select('.description p').node();
 
-            texts[0].textContent = currentCircle
+            let selectedEvent = events.find(e => e.eventTime.getHours() == currentCircle.split(" ")[2].split('t')[1].split('-')[0] && e.eventTime.getMinutes() == currentCircle.split(" ")[2].split('t')[1].split('-')[1]);
+            
 
+            console.log(headline, selectedEvent)
 
-            let selectedEvents = events.filter(e => e.eventTime.getHours() == currentCircle.split(" ")[2].split('t')[1].split('-')[0]);
-
-            console.log(selectedEvents)
+            headline.textContent = selectedEvent.location
+            text.textContent = selectedEvent.description
+            
 
             //texts[0].html(currentCircle)
 

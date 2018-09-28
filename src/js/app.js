@@ -216,6 +216,17 @@ function step()
             description.setAttribute('class', 'description selected');
             description.setAttribute('style', 'top:' + marginTop +'px');
 
+            let texts = d3.selectAll('.description p').nodes();
+
+            texts[0].textContent = currentCircle
+
+
+            let selectedEvents = events.filter(e => e.eventTime.getHours() == currentCircle.split(" ")[2].split('t')[1].split('-')[0]);
+
+            console.log(selectedEvents)
+
+            //texts[0].html(currentCircle)
+
             //d3.select('.description').html('<p>a;ksdjnkajnsc;kajns;dkcjna;ksjndc;kajsnc;kjansd;kjcn;akjsnd;cjkn;ajknsd;cjkn;ajksdnc;kna</p>');
            
         }

@@ -15,16 +15,18 @@ const appEl = document.querySelector(".interactive-wrapper");
 
 const barHeight = document.querySelector(".interactive-top-bar").clientHeight;
 
-
+let selectedDate;
 
 let events = [];
 
-let padding = {top:0,right:5,bottom:0,left:5};
+let padding = {top:0,right:5,bottom:0,left:80};
 
 let tLineYpos = 0;
 
 let locatorWidth = 200;
 let locatorHeight = 200;
+
+let flagPpoint = 0;
 
 Promise.all([
     d3.json("https://interactive.guim.co.uk/docsdata-test/13Rw2TmPSOvE8Q_PfXRQglPo5ic2_YmqmCTQtMGJCYx4.json"),
@@ -40,13 +42,13 @@ function ready(arr)
     let data = arr[0]
     let world = arr[1]
 
-    console.log(world)
-
     d3.map(data.sheets.Sheet1, function(row){
        let eventTime = new Date();
        eventTime.setHours(row['start time'].split(':')[0])
        eventTime.setMinutes(row['start time'].split(':')[1])
        eventTime.setSeconds(0);
+
+       selectedDate = new Date();
 
        events.push({location: row.location, eventTime:eventTime, deaths:+row.deaths, injured:+row.injured, lat:row.lat, lon:row.lon, description:row.description})
     })
@@ -63,30 +65,21 @@ function ready(arr)
 
 function makeGrid()
 {
+    let tline = d3.select('.tline')
+
     if(isMobile)
     {
-        d3.select('.maps').attr('class', 'column maps mobile');
         d3.select('.tline').attr('class', 'column tline mobile');
-        d3.select('.int-content').attr('class', 'column int-content mobile');
+        d3.select('.description').attr('class', 'description mobile');
 
         for (var i = 0; i < 24 ; i++) {
-            
-            let tline = d3.select('.tline')
-
             makeTimeLine(tline, i)
         }
     }
     else
     {
-        //makes 24 divs for each column
         for (var i = 0; i < 24; i++) {
-            d3.select('.maps').append('div')
-            .attr('class', 'map');
-
-            let tline = d3.select('.tline');
-
             makeTimeLine(tline, i)
-
         }
     }
 }
@@ -180,17 +173,39 @@ function step()
         topBar.el.classList.remove("bottom");
     }
 
-    let circles = d3.selectAll('.time-spot').nodes();
+    if(!isMobile)
+    {
+        flagPpoint = window.innerHeight / 3;
+    }
+    else
+    {
+        flagPpoint = 200;
+    }
 
-    let visible = circles.filter( c => Math.floor(c.getBoundingClientRect().top) <= Math.floor(window.innerHeight /2))
+    let circles = d3.selectAll('.time-spot').nodes();
+    let visible = circles.filter( c => Math.floor(c.getBoundingClientRect().top) <= flagPpoint)
     let topCircle = visible.slice(-1)[0];
-    let currentCircle = topCircle.getAttribute('class');
-    let description = d3.select('.description').node();
+
+    let totalDeaths = 0;
+    let totalInjured = 0;
     
+    let description = d3.select('.description').node();
+    let deathsText = d3.select('.deaths span');
+    let injuredText = d3.select('.injured span');
+    let tline = d3.select('.tline').node();
+    let yPos = tline.getBoundingClientRect().top;
+
+
+    if(topCircle == circles[0])
+    {
+        deathsText.html('Death toll: 0')
+        injuredText.html('Injured: 0')
+    }
+  
 
     if(topCircle)
     {
-        //d3.select('.interactive-top-bar').html(currentCircle);
+        let currentCircle = topCircle.getAttribute('class');
 
         d3.selectAll('.time-spot')
         .attr('r', 3)
@@ -199,13 +214,10 @@ function step()
 
         if(currentCircle.indexOf('selected') != -1){
 
-
-            let tline = d3.select('.tline').node();
-
             tLineYpos = tline.getBoundingClientRect().top;
 
             if(tLineYpos < 0){
-                tLineYpos =  Math.abs(tLineYpos);
+                tLineYpos =  Math.abs(tLineYpos, yPos);
             }
             else{
                 tLineYpos = tLineYpos - (tLineYpos * 2);
@@ -213,39 +225,56 @@ function step()
 
             let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - description.getBoundingClientRect().height / 2;
 
-            description.setAttribute('class', 'description selected');
-            description.setAttribute('style', 'top:' + marginTop +'px');
+
+            if(!isMobile)
+            {
+                description.setAttribute('class', 'description selected');
+                description.setAttribute('style', 'top:' + marginTop +'px');
+            }
+            else
+            {
+                description.setAttribute('class', 'description mobile selected');
+            }
 
             let headline = d3.select('.description h3').node();
-            let text = d3.select('.description p').node();
-
-            let selectedEvent = events.find(e => e.eventTime.getHours() == currentCircle.split(" ")[2].split('t')[1].split('-')[0] && e.eventTime.getMinutes() == currentCircle.split(" ")[2].split('t')[1].split('-')[1]);
+            let text = d3.select('.description p');
             
+            let selectedEventHours = currentCircle.split(" ")[2].split('t')[1].split('-')[0];
+            let selectedEventMinutes = currentCircle.split(" ")[2].split('t')[1].split('-')[1];
 
-            console.log(headline, selectedEvent)
+            selectedDate.setHours(selectedEventHours)
+            selectedDate.setMinutes(selectedEventMinutes)
+            selectedDate.setSeconds(0)
+
+            let selectedEvent = events.find(e => e.eventTime.getHours() == selectedEventHours && e.eventTime.getMinutes() == selectedEventMinutes);
+
+            let pastEvents = events.filter(e => e.eventTime.getTime() <= selectedDate.getTime());
+
+            d3.map(pastEvents, function(p){totalDeaths += p.deaths});
+            d3.map(pastEvents, function(p){totalInjured += p.injured});
+
+            deathsText.html("Death toll: " + totalDeaths)
+            injuredText.html("Injured: " + totalInjured)
 
             headline.textContent = selectedEvent.location
-            text.textContent = selectedEvent.description
-            
-
-            //texts[0].html(currentCircle)
-
-            //d3.select('.description').html('<p>a;ksdjnkajnsc;kajns;dkcjna;ksjndc;kajsnc;kjansd;kjcn;akjsnd;cjkn;ajknsd;cjkn;ajksdnc;kna</p>');
-           
+            text.html(selectedEvent.description);
+               
         }
-        else{
-            description.setAttribute('class', 'description');
+        else
+        {
+            if(!isMobile)
+            {
+                description.setAttribute('class', 'description');
+            }
+            else
+            {
+                description.setAttribute('class', 'description mobile');
+            }
         }
     }
-   /* else {
-        //currentCircle = circles[0].getAttribute('class')
-        //d3.select('.interactive-top-bar').html(currentCircle);
-
-    }*/
 
 	window.requestAnimationFrame(step);
 }
-
 
 
 function makeTimeLine(tline, index)
@@ -274,7 +303,7 @@ function makeTimeLine(tline, index)
     let circle = g.append('circle')
     .attr('cx', padding.left)
     .attr('cy', padding.top)
-    .attr('r', 3)
+    .attr('r', 5)
     .attr('class', 'time-spot t' + index + "-00")
 
     let timeLabel = g.append('text')

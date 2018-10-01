@@ -25,12 +25,11 @@
 .interactive-top-bar {
     height: 60px;
     background-color: #f6f6f6;
-    z-index: 1;
+    z-index: 101;
     position:absolute;
-    width: 100%;
-    
+   
     &.fixed {
-        position: fixed;
+        position: fixed;	
         top: 0;
     }
 
@@ -38,11 +37,11 @@
     	position: absolute;
     	bottom:0;
     	top: initial;
-    	
     }
 
     @include mq(mobile) {
         width: 100%;
+        height:auto;
     }
 
     @include mq(tablet) {
@@ -72,6 +71,8 @@
 
 .interactive-top-bar li {
     float: left;
+    width: 100%;
+    border:1px solid red;
 }
 
 .interactive-top-bar li span {
@@ -80,14 +81,17 @@
     text-align: center;
     padding: 8px 3.5em;
     text-decoration: none;
+    margin:0;
+    padding:0;
 }
 
 .interactive-timeline{
-	margin-top: 100px;
+	margin-top: 150px;
 	margin-bottom: 70px;
 	float: left;
 	width:100%;
 	padding:0;
+
 
 	@include mq(wide) {
     	width: 1260px;
@@ -103,26 +107,10 @@
 	height:auto;
 }
 
-.maps{
-	width:30%;
-	&.mobile{
-	display:none;
-	}
-}
-
 .tline{
-	width:10%;
+	width:110px;
 	&.mobile{
-	width:10%;
-	float:left;
-	}
-}
-
-.int-content {
-	width:58%;
-	&.mobile{
-	width:85%;
-	float:left;
+	left:20%;
 	}
 }
 
@@ -131,23 +119,32 @@
 	height:200px;
 }
 
+.int-content {
+	width:400px;
+}
+
 .description{
 	position:absolute;
-	top:0;
-	border:1px solid black;
 	display:none;
-	max-width:650px;
+	width:100%;
 	padding: 6px 10px;
-    font-size: 16px;
-    line-height: 24px;
+    
     font-family: "Guardian Text Egyptian Web",Georgia,serif;
-    background: rgba(255,255,255,0.9);
+    background: #FFFFFF;
     border: 2px solid black;
     box-shadow: 4px 4px 0 0 #333;
     padding-bottom: 18px;
+    z-index:100;
 
 	&.selected{
-	display:block;
+		display:block;
+	}
+
+	&.mobile{
+		position:fixed;
+		width:90%;
+		left: 0%;
+    	bottom: 4px;
 	}
 }
 
@@ -164,15 +161,14 @@
 }
 
 .line {
-	stroke: #B3B3B4;
-	stroke-width:2px;
+	stroke: #f6f6f6;
+	stroke-width:4px;
 	fill:none;
 }
 
 .time-spot {
-	fill: #B3B3B4;
-	stroke-width:1px;
-	stroke:white;
+	fill: #f6f6f6;
+	
 	&.selected{
 	fill: #333333;
 	}
@@ -180,13 +176,13 @@
 
 .time-label{
 	font-size:16px;
-	fill: #B3B3B4;
-	font-family:"Guardian Text Sans Web";
+	fill: #f6f6f6;
+	font-family:"Guardian Headline", "Guardian Egyptian Web", Georgia;
+	font-size:22px;
 	&.selected
 	{
 		fill: #333333;
-		font-family:"Guardian Headline", "Guardian Egyptian Web", Georgia;
-		font-size:22px;
+		
 	}
 }
 
@@ -197,7 +193,6 @@
 .copy-block__inner {
     display: block;
     position: absolute;
-    z-index: 1;
     width: 100%;
     height: auto;
     top: 4px;

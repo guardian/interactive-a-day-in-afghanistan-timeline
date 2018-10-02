@@ -97,6 +97,8 @@ function buildJS(filename) {
     }
 }
 
+console.log(path)
+
 function s3Upload(cacheControl, keyPrefix) {
     return s3()({
         'Bucket': 'gdn-cdn',

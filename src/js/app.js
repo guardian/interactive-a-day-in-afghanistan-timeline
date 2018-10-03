@@ -12,6 +12,8 @@ const topBar = {
     "el": document.querySelector(".interactive-top-bar")
 };
 
+if(isMobile){topBar.el.classList.add("mobile")}
+
 const appEl = document.querySelector(".interactive-wrapper");
 
 const barHeight = document.querySelector(".interactive-top-bar").clientHeight;
@@ -20,7 +22,7 @@ let selectedDate;
 
 let events = [];
 
-let padding = {top:0,right:5,bottom:0,left:80};
+let padding = {top:0,right:0,bottom:0,left:0};
 
 let tLineYpos = 0;
 
@@ -41,11 +43,8 @@ Promise.all([
     ])
 .then(ready)
 
-
-
 function ready(arr)
 {
-
     let data = arr[0]
     let world = arr[1]
 
@@ -77,7 +76,7 @@ function makeGrid()
     if(isMobile)
     {
         d3.select('.tline').attr('class', 'column tline mobile');
-        d3.select('.description').attr('class', 'description mobile');
+        d3.select('.int-description').attr('class', 'int-description mobile');
     }
 
     let tline = d3.select('.tline')
@@ -99,29 +98,52 @@ function makeGrid()
         let g = svg.append('g')
 
         let minutes = events[i].eventTime.getMinutes();
-        if(minutes === 0)minutes = '00';
+        if(minutes === 0)minutes = '';
+        if(minutes > 0 && minutes < 10)minutes = '.0' + minutes;
+        if(minutes >= 10)minutes = '.' + minutes;
         let hours = events[i].eventTime.getHours();
 
-        let prettyTime =  hours + ':' + minutes;
+        let meridian = 'pm';
+        if(hours > 12)
+        {
+            hours = hours -12;
+        }
+        else if(hours < 12)
+        {
+            meridian = 'am'
+        }
 
-        let line = g.append('line')
-        .attr('x1', padding.left)
-        .attr('y1', 0)
-        .attr('x2', padding.left)
-        .attr('y2', hourHeight)
-        .attr('class', 'line')
+        let prettyTime =  hours + minutes + meridian;
+
+
+        if(!isMobile)
+        {
+            let timeLabel = g.append('text')
+            .attr('class', 'time-label')
+            .attr('text-anchor', 'end')
+            .attr("x", -10)
+            .attr("y", 5)
+            .text(prettyTime)
+        }
+        else
+        {
+            let timeLabel = g.append('text')
+            .attr('class', 'time-label')
+            .attr('text-anchor', 'start')
+            .attr("x", 10)
+            .attr("y", 5)
+            .text(prettyTime)
+        }
+
+        
 
         let circle = g.append('circle')
         .attr('cx', padding.left)
         .attr('cy', padding.top)
-        .attr('r', 5)
-        .attr('class', 'time-spot t' + hours + "-" + minutes + " selected");
+        .attr('r', 7)
+        .attr('class', 'time-spot t' + events[i].eventTime.getHours() + "-" + events[i].eventTime.getMinutes());
 
-        let timeLabel = g.append('text')
-        .attr('class', 'time-label selected')
-        .attr("x", 15)
-        .attr("y", 5)
-        .text(prettyTime)
+        
     }
 }
 
@@ -156,6 +178,9 @@ function makeLocator(world)
 function step()
 {
     let boundingClient = appEl.getBoundingClientRect();
+    let description = d3.select('.int-description').node();
+    let tline = d3.select('.tline').node();
+    let yPos = tline.getBoundingClientRect().top;
 
     if(boundingClient.top <= 0)
     {
@@ -165,6 +190,7 @@ function step()
     if(boundingClient.bottom <= barHeight || boundingClient.top > 0)
     {
         topBar.el.classList.remove("fixed");
+        description.setAttribute('class', 'int-description mobile');
     }
 
     if(boundingClient.bottom <= barHeight) { 
@@ -187,21 +213,14 @@ function step()
     let topCircle = visible.slice(-1)[0];
     let lastCircle = circles[circles.length-1];
 
-    let description = d3.select('.int-description').node();
-    let tline = d3.select('.tline').node();
-    let yPos = tline.getBoundingClientRect().top;
-
     if(topCircle)
     {
+        d3.map(circles, function(c){c.classList.remove('selected')})
+        topCircle.classList.add("selected");
+
         let currentCircle = topCircle.getAttribute('class');
 
-        d3.selectAll('.time-spot')
-        .attr('r', 3)
-
-        topCircle.setAttribute('r', 10);
-
-        if(currentCircle.indexOf('selected') != -1 && lastCircle.getBoundingClientRect().top > barHeight){
-
+        if(currentCircle.indexOf(' t') != -1 && lastCircle.getBoundingClientRect().top > barHeight){
 
             tLineYpos = tline.getBoundingClientRect().top;
 
@@ -212,16 +231,17 @@ function step()
                 tLineYpos = tLineYpos - (tLineYpos * 2);
             }
 
-            let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - description.getBoundingClientRect().height / 2;
+            let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - 5;
+
+            description.setAttribute('style', 'top:' + marginTop +'px');
 
             if(!isMobile)
             {
                 description.setAttribute('class', 'int-description selected');
-                description.setAttribute('style', 'top:' + marginTop +'px');
             }
             else
             {
-                description.setAttribute('class', 'int-description mobile selected');
+                description.setAttribute('class', 'int-description selected mobile');
             }
 
             printDescription(currentCircle);
@@ -229,6 +249,7 @@ function step()
         }
         else
         {
+
             if(topCircle == circles[0])
             {
                 printDescription(0, null);
@@ -254,9 +275,6 @@ function printDescription(currentCircle)
 {
     if(currentPrintedCircle != currentCircle)
     {
-
-        console.log(currentCircle);
-
         let selectedEventHours = currentCircle.split(" ")[1].split('t')[1].split('-')[0];
         let selectedEventMinutes = currentCircle.split(" ")[1].split('t')[1].split('-')[1];
 
@@ -269,8 +287,8 @@ function printDescription(currentCircle)
 
         let headline = d3.select('.int-description h3');
         let text = d3.select('.int-description p');
-        let deaths = d3.select('.deaths');
-        let injured = d3.select('.injured');
+        let deaths = d3.select('.top-bar-deaths');
+        let injured = d3.select('.top-bar-injured');
         let currentDeaths = d3.select('.current-deaths');
         let currentInjured = d3.select('.current-injured');
         let totalDeaths=0;
@@ -282,28 +300,42 @@ function printDescription(currentCircle)
         text.html(selectedEvent.description);
         deaths.html(totalDeaths);
         injured.html(totalInjured);
-        currentDeaths.html(selectedEvent.deaths);
-        currentInjured.html(selectedEvent.injured);
+        currentDeaths.html(selectedEvent.deaths + ' killed');
+        currentInjured.html(selectedEvent.injured + ' injured');
 
-        if(!isMobile)
+
+        console.log(selectedEvent.lat, selectedEvent.lon)
+
+        d3.selectAll(".locator-map circle")
+        .remove()
+
+        if(!isMobile && selectedEvent.lat.indexOf('?') == -1 )
         {
-            d3.selectAll(".locator-map circle")
-            .remove()
-
-            d3.select(".locator-map")
-            .append("circle")
-            .attr('cx', mapProjetion([selectedEvent.lon, selectedEvent.lat])[0])
-            .attr('cy', mapProjetion([selectedEvent.lon, selectedEvent.lat])[1])
-            .attr('r','5px')
-            .style('fill', '#ff4e36')
-            .style('stroke-width', '3px') 
-            .style('stroke', '#FFFFFF'); 
+            makeLocation(selectedEvent.lon, selectedEvent.lat)
         }
-
-        
+        else
+        {
+            console.log('three locations')
+            makeLocation(68.088541, 33.191495);
+            makeLocation(64.559140, 31.825426);
+            makeLocation(66.674865, 32.938463);
+        }
 
         currentPrintedCircle = currentCircle;
     }
+}
+
+
+function makeLocation(lon, lat)
+{
+    d3.select(".locator-map")
+    .append("circle")
+    .attr('cx', mapProjetion([lon, lat])[0])
+    .attr('cy', mapProjetion([lon, lat])[1])
+    .attr('r','5px')
+    .style('fill', '#c70000')
+    .style('stroke-width', '3px') 
+    .style('stroke', '#FFFFFF'); 
 }
 
 

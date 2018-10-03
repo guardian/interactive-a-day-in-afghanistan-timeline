@@ -247,23 +247,11 @@ function step()
             printDescription(currentCircle);
                
         }
-        else
-        {
-
-            if(topCircle == circles[0])
-            {
-                printDescription(0, null);
-            }
-
-            if(!isMobile)
-            {
-                description.setAttribute('class', 'int-description');
-            }
-            else
-            {
-                description.setAttribute('class', 'int-description mobile');
-            }
-        }
+    }
+    else
+    {
+        printDescription(null);
+        circles[0].classList.remove('selected');
     }
 
     window.requestAnimationFrame(step);
@@ -273,55 +261,65 @@ function step()
 
 function printDescription(currentCircle)
 {
-    if(currentPrintedCircle != currentCircle)
+    if(currentCircle)
     {
-        let selectedEventHours = currentCircle.split(" ")[1].split('t')[1].split('-')[0];
-        let selectedEventMinutes = currentCircle.split(" ")[1].split('t')[1].split('-')[1];
 
-        selectedDate.setHours(selectedEventHours)
-        selectedDate.setMinutes(selectedEventMinutes)
-        selectedDate.setSeconds(0);
+        if(currentPrintedCircle != currentCircle)
+        {
+            let selectedEventHours = currentCircle.split(" ")[1].split('t')[1].split('-')[0];
+            let selectedEventMinutes = currentCircle.split(" ")[1].split('t')[1].split('-')[1];
 
-        let selectedEvent = events.find(e => e.eventTime.getHours() == selectedEventHours && e.eventTime.getMinutes() == selectedEventMinutes);
-        let pastEvents = events.filter(e => e.eventTime.getTime() <= selectedDate.getTime());
+            selectedDate.setHours(selectedEventHours)
+            selectedDate.setMinutes(selectedEventMinutes)
+            selectedDate.setSeconds(0);
 
-        let headline = d3.select('.int-description h3');
-        let text = d3.select('.int-description p');
+            let selectedEvent = events.find(e => e.eventTime.getHours() == selectedEventHours && e.eventTime.getMinutes() == selectedEventMinutes);
+            let pastEvents = events.filter(e => e.eventTime.getTime() <= selectedDate.getTime());
+
+            let headline = d3.select('.int-description h3');
+            let text = d3.select('.int-description p');
+            let deaths = d3.select('.top-bar-deaths');
+            let injured = d3.select('.top-bar-injured');
+            let currentDeaths = d3.select('.current-deaths');
+            let currentInjured = d3.select('.current-injured');
+            let totalDeaths=0;
+            let totalInjured=0;
+
+            d3.map(pastEvents, function(e){totalDeaths += e.deaths; totalInjured += e.injured});
+
+            headline.html(selectedEvent.location);
+            text.html(selectedEvent.description);
+            deaths.html(totalDeaths);
+            injured.html(totalInjured);
+            currentDeaths.html(selectedEvent.deaths + ' killed');
+            currentInjured.html(selectedEvent.injured + ' injured');
+
+            d3.selectAll(".locator-map circle")
+            .remove()
+
+            if(!isMobile && selectedEvent.lat.indexOf('?') == -1 )
+            {
+                makeLocation(selectedEvent.lon, selectedEvent.lat)
+            }
+            else
+            {
+                makeLocation(68.088541, 33.191495);
+                makeLocation(64.559140, 31.825426);
+                makeLocation(66.674865, 32.938463);
+            }
+
+            currentPrintedCircle = currentCircle;
+        }
+
+    }
+    else
+    {
         let deaths = d3.select('.top-bar-deaths');
         let injured = d3.select('.top-bar-injured');
-        let currentDeaths = d3.select('.current-deaths');
-        let currentInjured = d3.select('.current-injured');
-        let totalDeaths=0;
-        let totalInjured=0;
 
-        d3.map(pastEvents, function(e){totalDeaths += e.deaths; totalInjured += e.injured});
+        deaths.html(0);
+        injured.html(0);
 
-        headline.html(selectedEvent.location);
-        text.html(selectedEvent.description);
-        deaths.html(totalDeaths);
-        injured.html(totalInjured);
-        currentDeaths.html(selectedEvent.deaths + ' killed');
-        currentInjured.html(selectedEvent.injured + ' injured');
-
-
-        console.log(selectedEvent.lat, selectedEvent.lon)
-
-        d3.selectAll(".locator-map circle")
-        .remove()
-
-        if(!isMobile && selectedEvent.lat.indexOf('?') == -1 )
-        {
-            makeLocation(selectedEvent.lon, selectedEvent.lat)
-        }
-        else
-        {
-            console.log('three locations')
-            makeLocation(68.088541, 33.191495);
-            makeLocation(64.559140, 31.825426);
-            makeLocation(66.674865, 32.938463);
-        }
-
-        currentPrintedCircle = currentCircle;
     }
 }
 

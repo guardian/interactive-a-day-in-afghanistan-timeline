@@ -159,7 +159,7 @@
 }
 
 .int-content {
-	width:620px;
+	width:calc(100% - 300px);
 	position:absolute;
 	float:left;
 	left:0px;

@@ -263,6 +263,7 @@ function printDescription(currentCircle)
 {
     if(currentCircle)
     {
+        console.log(currentCircle)
 
         if(currentPrintedCircle != currentCircle)
         {
@@ -273,9 +274,6 @@ function printDescription(currentCircle)
             selectedDate.setMinutes(selectedEventMinutes)
             selectedDate.setSeconds(0);
 
-            let selectedEvent = events.find(e => e.eventTime.getHours() == selectedEventHours && e.eventTime.getMinutes() == selectedEventMinutes);
-            let pastEvents = events.filter(e => e.eventTime.getTime() <= selectedDate.getTime());
-
             let headline = d3.select('.int-description h3');
             let text = d3.select('.int-description p');
             let deaths = d3.select('.top-bar-deaths');
@@ -285,7 +283,12 @@ function printDescription(currentCircle)
             let totalDeaths=0;
             let totalInjured=0;
 
+            let selectedEvent = events.find(e => e.eventTime.getHours() == selectedEventHours && e.eventTime.getMinutes() == selectedEventMinutes);
+            let pastEvents = events.filter(e => e.eventTime.getTime() <= selectedDate.getTime());
+
             d3.map(pastEvents, function(e){totalDeaths += e.deaths; totalInjured += e.injured});
+
+            console.log(totalDeaths, "paso por aqui")
 
             headline.html(selectedEvent.location);
             text.html(selectedEvent.description);
@@ -314,11 +317,14 @@ function printDescription(currentCircle)
     }
     else
     {
+
         let deaths = d3.select('.top-bar-deaths');
         let injured = d3.select('.top-bar-injured');
 
         deaths.html(0);
         injured.html(0);
+
+        currentPrintedCircle = null;
 
     }
 }

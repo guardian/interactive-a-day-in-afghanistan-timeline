@@ -163,6 +163,10 @@
 	position:absolute;
 	float:left;
 	left:0px;
+
+    &.mobile{
+        width:100%;
+    }
 }
 
 .int-description{
@@ -176,7 +180,7 @@
     z-index:100;
     left:100px;
     width:100%;
-    max-width:100%;
+
 
 	&.selected{
 		display:block;
@@ -184,7 +188,6 @@
 
 	&.mobile{
 		left:5px;
-		max-width:calc(100% - 120px);
 	}
 }
 

@@ -12,7 +12,16 @@ const topBar = {
     "el": document.querySelector(".interactive-top-bar")
 };
 
-if(isMobile){topBar.el.classList.add("mobile")}
+const interactiveTimeline = {
+    "el": document.querySelector(".interactive-timeline"),
+    "timeLine" : document.querySelector(".tline"),
+    "intContent" : document.querySelector(".int-content")
+}
+
+if(isMobile){
+    topBar.el.classList.add("mobile");
+    interactiveTimeline.intContent.classList.add("mobile");
+}
 
 const appEl = document.querySelector(".interactive-wrapper");
 

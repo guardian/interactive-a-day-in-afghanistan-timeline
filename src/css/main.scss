@@ -177,6 +177,7 @@
     border: 1px solid black;
     z-index:98;
     width:100%;
+    left: 10px;
 
 
 	&.selected{
@@ -185,8 +186,11 @@
 
     position:fixed;
     top:6px;
+    width: calc(100% - 30px);
 
-    width: calc(100% - 40px);
+    @include mq(mobileMedium) {
+      width: calc(100% - 40px);
+    }
 
 
     @include mq(desktop) {
@@ -265,11 +269,23 @@
 	font-family:'Guardian Text Sans Web', Arial, sans-serif;
 	font-size:14px;
 	fill: #333333;
+  transform: translate(0px, 5px);
+  @include mq(tablet) {
+    transform: translate(24px, 5px);
+  }
+  @include mq(leftCol) {
+    text-anchor: end;
+    transform: translate(-4px, 5px);
+  }
 }
 
 
 .column.tline svg, .column.mobile svg{
 	overflow:visible;
+}
+
+.tline.mobile {
+  z-index: 101;
 }
 
 .copy-block__inner {

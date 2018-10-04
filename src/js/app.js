@@ -4,9 +4,6 @@ import * as d3geo from 'd3-geo'
 import * as topojson from 'topojson'
 import textures from 'textures'
 
-
-console.log("hello")
-
 let d3 = Object.assign({}, d3B, d3geo);
 
 const isMobile = window.matchMedia('(max-width: 600px)').matches
@@ -21,10 +18,6 @@ const interactiveTimeline = {
     "intContent" : document.querySelector(".int-content")
 }
 
-if(isMobile){
-    topBar.el.classList.add("mobile");
-    interactiveTimeline.intContent.classList.add("mobile");
-}
 
 const appEl = document.querySelector(".interactive-wrapper");
 
@@ -38,10 +31,10 @@ let padding = {top:0,right:0,bottom:0,left:0};
 
 let tLineYpos = 0;
 
-let locatorWidth = 200;
-let locatorHeight = 150;
+let locatorWidth = 300;
+let locatorHeight = 215;
 
-let flagPoint = 0;
+let flagPoint;
 
 let currentPrintedCircle;
 
@@ -49,7 +42,19 @@ let mapProjetion = d3.geoMercator()
 
 let worldUrl = "<%= path %>/assets/world-simple.json";
 
-console.log("hello");
+
+
+if(isMobile){
+    topBar.el.classList.add("mobile");
+    interactiveTimeline.intContent.classList.add("mobile");
+
+    flagPoint = 50;
+    
+}
+else
+{
+    flagPoint = 100;
+}
 
 Promise.all([
     d3.json("https://interactive.guim.co.uk/docsdata-test/13Rw2TmPSOvE8Q_PfXRQglPo5ic2_YmqmCTQtMGJCYx4.json"),
@@ -136,7 +141,7 @@ function makeGrid()
             let timeLabel = g.append('text')
             .attr('class', 'time-label')
             .attr("x", -10)
-            
+            .attr("y", 5)
             .text(prettyTime)
         }
         else
@@ -144,7 +149,7 @@ function makeGrid()
             let timeLabel = g.append('text')
             .attr('class', 'time-label mobile')
             .attr("x", 10)
-            
+            .attr("y", 5)
             .text(prettyTime)
         }
 
@@ -204,15 +209,6 @@ function step()
     {
         topBar.el.classList.remove("fixed");
         description.setAttribute('class', 'int-description mobile');
-    }
-
-    if(!isMobile)
-    {
-        flagPoint = window.innerHeight / 3;
-    }
-    else
-    {
-        flagPoint = window.innerHeight / 2;
     }
 
     let circles = d3.selectAll('.time-spot').nodes();
@@ -287,7 +283,7 @@ function printDescription(currentCircle)
             selectedDate.setSeconds(0);
 
             let headline = d3.select('.int-description h3');
-            let text = d3.select('.int-description p');
+            let text = d3.select('.content-text-wrapper p');
             let deaths = d3.select('.top-bar-deaths');
             let injured = d3.select('.top-bar-injured');
             let currentDeaths = d3.select('.current-deaths');
@@ -323,7 +319,6 @@ function printDescription(currentCircle)
 
             currentPrintedCircle = currentCircle;
         }
-
     }
     else
     {
@@ -346,7 +341,7 @@ function makeLocation(lon, lat)
     .append("circle")
     .attr('cx', mapProjetion([lon, lat])[0])
     .attr('cy', mapProjetion([lon, lat])[1])
-    .attr('r','5px')
+    .attr('r','7px')
     .style('fill', '#c70000')
     .style('stroke-width', '3px') 
     .style('stroke', '#FFFFFF'); 

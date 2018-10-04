@@ -118,8 +118,6 @@
 	padding:0;
 }
 
-.bottom-wrapper {}
-
 .column{
 	margin: 0;
 	padding: 0;
@@ -131,19 +129,13 @@
 
 .tline{
 	width:10px;
-	left:5px;
+	left:100px;
 	border-left:1px solid black;
 
-  @include mq(tablet) {
-    left: 60px;
-  }
-  // @include mq(leftCol) {
-  //   left: 150px;
-  // }
-  // @include mq(wide) {
-  //   left: 250px;
-  // }
-
+	&.mobile
+	{
+		left:5px;
+	}
 }
 
 .hour{
@@ -162,8 +154,6 @@
     }
     @include mq(tablet) {
       max-width: 620px;
-      position:relative;
-      // margin-left: 139px;
     }
 }
 

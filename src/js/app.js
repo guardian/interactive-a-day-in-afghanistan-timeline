@@ -4,6 +4,9 @@ import * as d3geo from 'd3-geo'
 import * as topojson from 'topojson'
 import textures from 'textures'
 
+
+console.log("hello")
+
 let d3 = Object.assign({}, d3B, d3geo);
 
 const isMobile = window.matchMedia('(max-width: 600px)').matches
@@ -46,6 +49,8 @@ let mapProjetion = d3.geoMercator()
 
 let worldUrl = "<%= path %>/assets/world-simple.json";
 
+console.log("hello");
+
 Promise.all([
     d3.json("https://interactive.guim.co.uk/docsdata-test/13Rw2TmPSOvE8Q_PfXRQglPo5ic2_YmqmCTQtMGJCYx4.json"),
     d3.json(worldUrl)
@@ -61,6 +66,7 @@ function ready(arr)
 
         if(!row["start time"]=="")
         {
+
             let eventTime = new Date();
             eventTime.setHours(row['start time'].split(':')[0])
             eventTime.setMinutes(row['start time'].split(':')[1])
@@ -352,18 +358,3 @@ function makeLocation(lon, lat)
     .style('stroke-width', '3px') 
     .style('stroke', '#FFFFFF'); 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

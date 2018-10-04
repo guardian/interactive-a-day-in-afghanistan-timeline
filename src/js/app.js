@@ -129,18 +129,16 @@ function makeGrid()
         {
             let timeLabel = g.append('text')
             .attr('class', 'time-label')
-            .attr('text-anchor', 'end')
             .attr("x", -10)
-            .attr("y", 5)
+            
             .text(prettyTime)
         }
         else
         {
             let timeLabel = g.append('text')
-            .attr('class', 'time-label')
-            .attr('text-anchor', 'start')
+            .attr('class', 'time-label mobile')
             .attr("x", 10)
-            .attr("y", 5)
+            
             .text(prettyTime)
         }
 
@@ -225,6 +223,7 @@ function step()
 
     if(topCircle)
     {
+
         d3.map(circles, function(c){c.classList.remove('selected')})
         topCircle.classList.add("selected");
 
@@ -244,7 +243,7 @@ function step()
             let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - 5;
             let bulletTop = marginTop + 4;
 
-            console.log(bulletTop, bulletTop+5)
+            bullet.classList.add("render")
 
             description.setAttribute('style', 'top:' + marginTop +'px');
             bullet.setAttribute('style', 'top:' + bulletTop +'px');
@@ -266,6 +265,7 @@ function step()
     {
         printDescription(null);
         circles[0].classList.remove('selected');
+        bullet.classList.remove("render")
     }
 
     window.requestAnimationFrame(step);

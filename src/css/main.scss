@@ -66,11 +66,15 @@
     overflow: hidden;
     color:white;
     float: left;
+    @include mq(desktop) {
+      position: absolute;
+      left: calc((100% - 980px)/2 + 10px);
+    }
     @include mq(leftCol) {
-       margin-left:150px;
-    } 
+        left: calc((100% - 1140px)/2 + 170px);
+    }
     @include mq(wide) {
-        margin-left: 250px;
+        left: calc((100% - 1300px)/2 + 250px);
     }
 }
 
@@ -126,13 +130,22 @@
 
 .tline{
 	width:10px;
-	left:100px;
+	left:10px;
 	border-left:1px solid black;
 
 	&.mobile
 	{
-		left:5px;
+		left:10px;
 	}
+  @include mq(desktop) {
+    left: calc((100% - 980px)/2 + 10px);
+  }
+  @include mq(leftCol) {
+      left: calc((100% - 1140px)/2 + 170px);
+  }
+  @include mq(wide) {
+      left: calc((100% - 1300px)/2 + 40px);
+  }
 }
 
 .hour{
@@ -179,10 +192,16 @@
     @include mq(desktop) {
         width:620px;
         top: 80px;
+        left: calc((100% - 980px)/2 + 10px);
+    }
+
+
+    @include mq(leftCol) {
+        left: calc((100% - 1140px)/2 + 170px);
     }
 
     @include mq(wide) {
-        left: calc((100% - 1300px)/2 + 260px);
+        left: calc((100% - 1300px)/2 + 250px);
     }
 
 
@@ -241,11 +260,13 @@
 	}
 }
 
+
 .time-label{
 	font-family:'Guardian Text Sans Web', Arial, sans-serif;
 	font-size:14px;
 	fill: #333333;
 }
+
 
 .column.tline svg, .column.mobile svg{
 	overflow:visible;
@@ -302,6 +323,8 @@
      min-height: 300px;
      content: ' ';
      border-left: 1px solid $neutral-86;
+
+
 
      @include mq(leftCol) {
        left: calc((100% - 1140px)/2 + 170px);

@@ -242,9 +242,12 @@ function step()
             }
 
             let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - 5;
+            let bulletTop = marginTop + 4;
+
+            console.log(bulletTop, bulletTop+5)
 
             description.setAttribute('style', 'top:' + marginTop +'px');
-            bullet.setAttribute('style', 'top:' + topCircle.getBoundingClientRect().top +'px');
+            bullet.setAttribute('style', 'top:' + bulletTop +'px');
 
             if(!isMobile)
             {
@@ -274,7 +277,6 @@ function printDescription(currentCircle)
 {
     if(currentCircle)
     {
-        console.log(currentCircle)
 
         if(currentPrintedCircle != currentCircle)
         {

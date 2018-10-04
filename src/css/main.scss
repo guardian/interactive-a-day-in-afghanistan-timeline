@@ -32,7 +32,7 @@
    	height:auto;
 
     &.fixed {
-        position: fixed;	
+        position: fixed;
         top: 0;
     }
 
@@ -52,7 +52,7 @@
     }
 
     @include mq(mobile) {
-        
+
         &.fixed {
         	left:0;
         	width: 100%;
@@ -89,7 +89,7 @@
 	float: left;
 	color:#FFFFFF;
 	margin-left:100px;
-    
+
 }
 
 .interactive-top-bar span{
@@ -159,7 +159,7 @@
 }
 
 .int-content {
-	width:calc(100% - 300px);
+	width:100%;
 	position:absolute;
 	float:left;
 	left:0px;
@@ -236,7 +236,7 @@
 	fill: #ffffff;
 	stroke:#C70000;
 	stroke-width:2px;
-	
+
 	&.selected{
 	fill: #C70000;
 	}
@@ -304,4 +304,97 @@
 	 display:block;
 	 }
  }
- 
+
+ .interactive-grid {
+     position: relative;
+     margin-bottom: 24px;
+     margin-top: 12px;
+     &::after {
+         content: " ";
+         display: block;
+         height: 0;
+         clear: both;
+     }
+     &.interactive-grid--inline {
+         width: 100%;
+         @include mq(tablet) {
+             width: 620px;
+         }
+     }
+     &.interactive-grid--showcase {
+         width: 100%;
+         @include mq(tablet) {
+             width: 860px;
+         }
+     }
+     &.interactive-grid--immersive {
+         width: 100%;
+         @include mq(tablet) {
+             width: 1260px;
+         }
+         @include mq(leftCol) {
+             padding-top: 6px;
+             padding-bottom: 6px;
+             background-color: #fff;
+         }
+     }
+ }
+
+ .content__main {
+   position: relative;
+
+   &:before {
+     position: absolute;
+     top: 0;
+     height: 100%;
+     min-height: 300px;
+     content: ' ';
+     border-left: 1px solid $neutral-86;
+
+     @include mq(leftCol) {
+       left: calc((100% - 1140px)/2 + 170px);
+     }
+
+     @include mq(wide) {
+       left: calc((100% - 1300px)/2 + 250px);
+     }
+   }
+
+   .byline {
+     border-top: none !important;
+     margin-top: 5px;
+   }
+ }
+
+ .content__main-column--interactive {
+ .element-interactive,.element-atom {
+
+        max-width: 620px;
+
+        @include mq(leftCol) {
+            margin-left: 160px !important;
+        }
+        @include mq(wide) {
+            margin-left: 240px !important;
+        }
+    }
+
+    .element--immersive {
+    	max-width: initial;
+    	margin-left: 0 !important;
+        margin-bottom: 36px !important;
+
+        @include mq(wide) {
+            width: 1300px;
+            margin-left: -20px !important;
+        }
+    }
+
+    .element--showcase {
+
+      max-width: 860px;
+
+    }
+
+
+}

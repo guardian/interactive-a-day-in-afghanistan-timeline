@@ -200,16 +200,10 @@ function step()
         topBar.el.classList.add("fixed");
     }
 
-    if(boundingClient.bottom <= barHeight || boundingClient.top > 0)
+    if(boundingClient.bottom <= ((isMobile) ? window.innerHeight : window.innerHeight/2) || boundingClient.top > 0)
     {
         topBar.el.classList.remove("fixed");
         description.setAttribute('class', 'int-description mobile');
-    }
-
-    if(boundingClient.bottom <= barHeight) { 
-        topBar.el.classList.add("bottom");
-    } else {
-        topBar.el.classList.remove("bottom");
     }
 
     if(!isMobile)
@@ -251,7 +245,6 @@ function step()
 
             bullet.classList.add("render")
 
-            description.setAttribute('style', 'top:' + marginTop +'px');
             bullet.setAttribute('style', 'top:' + bulletTop +'px');
 
             if(!isMobile)

@@ -299,8 +299,6 @@ function printDescription(currentCircle)
 
             d3.map(pastEvents, function(e){totalDeaths += e.deaths; totalInjured += e.injured});
 
-            console.log(totalDeaths, "paso por aqui")
-
             headline.html(selectedEvent.location);
             text.html(selectedEvent.description);
             deaths.html(totalDeaths);

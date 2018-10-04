@@ -27,28 +27,14 @@
     height: 60px;
     background-color: #121212;
     z-index: 100;
-    position:absolute;
    	width: 100%;
-   	height:auto;
+    position: fixed;
+    top: 0;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
 
     &.fixed {
-        position: fixed;
-        top: 0;
-    }
-
-    &.fixed li
-    {
-    	margin-left:190px;
-    }
-
-    &.mobile li {
-        margin-left:10px;
-    }
-
-    &.bottom {
-    	position: absolute;
-    	bottom:0;
-    	top: initial;
+        transform: translateY(0%);
     }
 
     @include mq(mobile) {
@@ -58,30 +44,36 @@
         	width: 100%;
         }
     }
+
+    @include mq($until: 600px) {
+    transform: translateY(100%);
+    bottom: 0;
+    top: initial;
+     &.fixed
+        {
+            top: initial;
+            bottom: 0;
+            transform: translateY(0%);
+        }
+    }
 }
 
 
-.interactive-top-bar ul {
+.interactive-top-bar div {
     margin: 0;
     padding: 10px;
     overflow: hidden;
+    color:white;
+    float: left;
+    @include mq(leftCol) {
+       margin-left:150px;
+    } 
+    @include mq(wide) {
+        margin-left: 250px;
+    }
 }
 
-.interactive-top-bar li {
-	list-style-type: none;
-	float: left;
-	color:#FFFFFF;
-
-  @include mq(leftCol) {
-	   margin-left:150px;
-  }
-  @include mq(wide) {
-    margin-left: 250px;
-  }
-
-}
-
-.interactive-top-bar span{
+.interactive-top-bar div span{
 	display: block;
     padding: 8px 3.5em;
     text-decoration: none;
@@ -93,18 +85,18 @@
 }
 
 
-.interactive-top-bar .top-bar-wrapper{
+.interactive-top-bar div .top-bar-wrapper{
 	display:flex;
 	align-items:baseline;
 }
 
-.interactive-top-bar li .top-bar-deaths {
+.interactive-top-bar div .top-bar-deaths {
     @include fs-titlepiece(1);
 	font-size: 32px;
 	line-height: 28px;
 }
 
-.interactive-top-bar li .top-bar-injured {
+.interactive-top-bar div .top-bar-injured {
     @include fs-titlepiece(1);
 	font-size: 32px;
 	line-height: 28px;
@@ -178,9 +170,20 @@
 		display:block;
 	}
 
-	&.mobile{
-		left:5px;
-	}
+    position:fixed;
+    top:6px;
+
+    width: calc(100% - 40px);
+
+    left: 10px;
+
+    @include mq(desktop) {
+        width:620px;
+        left: 240px;
+        top: 80px;
+    }
+
+
 }
 
 .current-deaths, .current-injured

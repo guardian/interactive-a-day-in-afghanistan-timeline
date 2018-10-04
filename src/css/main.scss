@@ -20,6 +20,7 @@
 	width: 100%;
 	position:relative;
 	float:left;
+	margin-bottom:100px;
 }
 
 .interactive-top-bar {
@@ -115,6 +116,10 @@
 	float: left;
 	width:100%;
 	padding:0;
+
+	@include mq(wide) {
+    	margin-left: 210px;
+    }
 }
 
 .column{
@@ -282,41 +287,6 @@
  z-index:99;
  }
 
- .interactive-grid {
-     position: relative;
-     margin-bottom: 24px;
-     margin-top: 12px;
-     &::after {
-         content: " ";
-         display: block;
-         height: 0;
-         clear: both;
-     }
-     &.interactive-grid--inline {
-         width: 100%;
-         @include mq(tablet) {
-             width: 620px;
-         }
-     }
-     &.interactive-grid--showcase {
-         width: 100%;
-         @include mq(tablet) {
-             width: 860px;
-         }
-     }
-     &.interactive-grid--immersive {
-         width: 100%;
-         @include mq(tablet) {
-             width: 1260px;
-         }
-         @include mq(leftCol) {
-             padding-top: 6px;
-             padding-bottom: 6px;
-             background-color: #fff;
-         }
-     }
- }
-
  .content__main {
    position: relative;
 
@@ -344,7 +314,7 @@
  }
 
  .content__main-column--interactive {
- .element-interactive,.element-atom {
+     & > p, & > h2,& > ul,  .element-interactive,.element-atom {
 
         max-width: 620px;
 
@@ -372,6 +342,4 @@
       max-width: 860px;
 
     }
-
-
 }

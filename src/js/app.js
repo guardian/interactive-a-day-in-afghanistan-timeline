@@ -221,6 +221,7 @@ function step()
     let visible = circles.filter( c => Math.floor(c.getBoundingClientRect().top) <= flagPoint)
     let topCircle = visible.slice(-1)[0];
     let lastCircle = circles[circles.length-1];
+    let bullet = d3.select('.bullet-point').node();
 
     if(topCircle)
     {
@@ -243,6 +244,7 @@ function step()
             let marginTop = tLineYpos + topCircle.getBoundingClientRect().top - 5;
 
             description.setAttribute('style', 'top:' + marginTop +'px');
+            bullet.setAttribute('style', 'top:' + topCircle.getBoundingClientRect().top +'px');
 
             if(!isMobile)
             {

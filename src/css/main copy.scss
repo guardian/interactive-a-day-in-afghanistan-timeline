@@ -28,9 +28,9 @@
     z-index: 101;
     position:absolute;
     border-bottom: 1px solid #b3b3b4;
-   
+
     &.fixed {
-        position: fixed;	
+        position: fixed;
         top: 0;
     }
 
@@ -46,7 +46,7 @@
         	width: calc(100% - 20px);
         	margin-right: 10px;
         }
-        height:auto; 
+        height:auto;
     }
 
     @include mq(tablet) {
@@ -62,7 +62,7 @@
     }
 
     @include mq(wide) {
-    	width: 1260px;
+    	width: 100%;
     }
 }
 
@@ -76,7 +76,7 @@
 .interactive-top-bar li {
 	list-style-type: none;
 	float: left;
-    
+
 }
 
 .interactive-top-bar li span {
@@ -141,12 +141,14 @@
 	width:400px;
 }
 
+
+
 .description{
 	position:absolute;
 	display:none;
 	width:100%;
 	padding: 6px 10px;
-    
+
     font-family: "Guardian Text Egyptian Web",Georgia,serif;
     background: #FFFFFF;
     border: 2px solid black;
@@ -201,7 +203,7 @@
 
 .time-spot {
 	fill: #f6f6f6;
-	
+
 	&.selected{
 	fill: #333333;
 	}
@@ -215,7 +217,7 @@
 	&.selected
 	{
 		fill: #333333;
-		
+
 	}
 }
 

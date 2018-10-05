@@ -228,8 +228,8 @@
 	}
 
     &.mobile{
-        width: calc(100% - 22px);
-        height:370px;
+        width: calc(100% - 10px);
+        height:420px;
         left:10px;
         top:60px;
         svg{
@@ -596,7 +596,7 @@
             background-color: #fff;
         }
         @include mq(wide) {
-          width: 1280px
+          width: 1280px;
           left: 10px;
         }
     }

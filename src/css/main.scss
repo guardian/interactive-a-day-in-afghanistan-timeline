@@ -403,7 +403,7 @@
     font-size:14px;
     fill: black;
     width: 100%;
-    
+
 }
 
 
@@ -476,30 +476,6 @@
 
  .content__main-column--interactive {
     & > p, & > h2,& > ul,  .element-interactive,.element-atom {
-
-      em {
-
-        background-color: #c70000;
-        width: 1em;
-        height: 1em;
-        color: #fff;
-
-        border-radius: 1em;
-        font-style: unset;
-        font-size: 1em;
-        padding: 0;
-        margin: 0;
-        padding-left: 0.25em;
-        padding-right: 0.25em;
-        margin-right: 0.25em;
-        font-weight: 600;
-      }
-
-      strong {
-        background-color: $highlight_yellow;
-        padding: 4px;
-      }
-
 
         max-width: 620px;
 
@@ -646,15 +622,25 @@
     }
 }
 
-.interactive-grid__caption {
+.image--small {
+  max-width: 400px;
+  .image__inner {
+    padding-bottom: 9%;
+  }
+  img {
+    height: inherit;
+  }
+}
+
+.interactive-grid__caption, .interactive-grid__caption-bold {
     display: block;
-    max-width: 180px;
+    max-width: 320px;
     margin-left: -10px;
     line-height: 12px;
     // height: 100px;
     // margin-top: -100px;
     position: absolute;
-    bottom: 24px;
+    bottom: -40px;
     z-index: 100;
     .interactive-grid--immersive & {
         @include mq(tablet) {
@@ -664,13 +650,20 @@
             margin-left: -10px;
         }
     }
-    // @include mq($until: tablet) {
-    //     bottom: auto;
-    //     top: 24px;
-    // }
+    @include mq(tablet) {
+        bottom: 24px;
+        max-width: 180px;
+    }
 }
 
-.interactive-grid__caption span {
+.interactive-grid--immersive {
+  margin-bottom: 64px;
+  @include mq(tablet) {
+    margin-bottom: 12px;
+  }
+}
+
+.interactive-grid__caption span, .interactive-grid__caption-bold span {
     display: inline;
     background-color: #ffe500;
     @include fs-bodyCopy(1);
@@ -679,4 +672,14 @@
     padding: 3px 2px 2px 4px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+}
+
+.interactive-grid__caption-bold {
+  margin-bottom: 0px;
+  bottom: -59px;
+  font-weight: bold;
+
+  @include mq(tablet) {
+    bottom:6px;
+  }
 }

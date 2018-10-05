@@ -630,7 +630,7 @@
     // height: 100px;
     // margin-top: -100px;
     position: absolute;
-    bottom: -60px;
+    bottom: -40px;
     z-index: 100;
     .interactive-grid--immersive & {
         @include mq(tablet) {
@@ -662,4 +662,14 @@
     padding: 3px 2px 2px 4px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+}
+
+.interactive-grid__caption-bold {
+  margin-bottom: 0px;
+  bottom: -59px;
+  font-weight: bold;
+
+  @include mq(tablet) {
+    bottom:6px;
+  }
 }

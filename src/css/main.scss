@@ -622,6 +622,16 @@
     }
 }
 
+.image--small {
+  max-width: 400px;
+  .image__inner {
+    padding-bottom: 9%;
+  }
+  img {
+    height: inherit;
+  }
+}
+
 .interactive-grid__caption, .interactive-grid__caption-bold {
     display: block;
     max-width: 320px;

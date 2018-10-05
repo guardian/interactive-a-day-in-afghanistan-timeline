@@ -48,7 +48,7 @@ if(isMobile){
     topBar.el.classList.add("mobile");
     interactiveTimeline.intContent.classList.add("mobile");
 
-    flagPoint = 50;
+    flagPoint = 100;
     
 }
 else
@@ -118,22 +118,9 @@ function makeGrid()
         let g = svg.append('g')
 
         let minutes = events[i].eventTime.getMinutes();
-        if(minutes === 0)minutes = '';
-        if(minutes > 0 && minutes < 10)minutes = '.0' + minutes;
-        if(minutes >= 10)minutes = '.' + minutes;
         let hours = events[i].eventTime.getHours();
 
-        let meridian = 'pm';
-        if(hours > 12)
-        {
-            hours = hours -12;
-        }
-        else if(hours < 12)
-        {
-            meridian = 'am'
-        }
-
-        let prettyTime =  hours + minutes + meridian;
+        let pTime =  prettyTime(hours, minutes);
 
 
         if(!isMobile)
@@ -141,16 +128,16 @@ function makeGrid()
             let timeLabel = g.append('text')
             .attr('class', 'time-label')
             .attr("x", -10)
-            .attr("y", 5)
-            .text(prettyTime)
+            .attr("y", 0)
+            .text(pTime)
         }
         else
         {
             let timeLabel = g.append('text')
             .attr('class', 'time-label mobile')
             .attr("x", 10)
-            .attr("y", 5)
-            .text(prettyTime)
+            .attr("y", 0)
+            .text(pTime)
         }
 
         
@@ -200,12 +187,12 @@ function step()
     let tline = d3.select('.tline').node();
     let yPos = tline.getBoundingClientRect().top;
 
-    if(boundingClient.top <= 0)
+    if(boundingClient.top <= window.innerHeight/3)
     {
         topBar.el.classList.add("fixed");
     }
 
-    if(boundingClient.bottom <= ((isMobile) ? window.innerHeight : window.innerHeight/2) || boundingClient.top > 0)
+    if(boundingClient.bottom <= ((isMobile) ? window.innerHeight/3 : window.innerHeight/3) || boundingClient.top > window.innerHeight/3)
     {
         topBar.el.classList.remove("fixed");
         description.setAttribute('class', 'int-description mobile');
@@ -317,6 +304,12 @@ function printDescription(currentCircle)
                 makeLocation(66.674865, 32.938463);
             }
 
+            if(isMobile)
+            {
+                console.log(selectedEventHours,selectedEventMinutes);
+                d3.select(".int-description-time").html(prettyTime(selectedEventHours, selectedEventMinutes))
+            }
+
             currentPrintedCircle = currentCircle;
         }
     }
@@ -345,4 +338,25 @@ function makeLocation(lon, lat)
     .style('fill', '#c70000')
     .style('stroke-width', '3px') 
     .style('stroke', '#FFFFFF'); 
+}
+
+
+function prettyTime(hours, minutes)
+{
+    let meridian = 'pm';
+
+    if(minutes === 0 || minutes === '0') minutes = '';
+    if(minutes > 0 && minutes < 10)minutes = '.0' + minutes;
+    if(minutes >= 10)minutes = '.' + minutes;
+
+    if(hours > 12)
+    {
+        hours = hours -12;
+    }
+    else if(hours < 12)
+    {
+        meridian = 'am';
+    }
+
+    return hours + minutes + meridian
 }

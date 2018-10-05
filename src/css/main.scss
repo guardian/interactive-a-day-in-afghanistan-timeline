@@ -230,7 +230,6 @@
     }
 
     border-left:1px solid black;
-    adding:0 0 2px 5px;
 
     position:fixed;
     width: calc(100% - 30px);
@@ -274,7 +273,7 @@
     height:0px;
  }
 
- 
+
 
 .current-deaths, .current-injured
 {
@@ -412,7 +411,31 @@
  }
 
  .content__main-column--interactive {
-     & > p, & > h2,& > ul,  .element-interactive,.element-atom {
+    & > p, & > h2,& > ul,  .element-interactive,.element-atom {
+
+      em {
+
+        background-color: #c70000;
+        width: 1em;
+        height: 1em;
+        color: #fff;
+
+        border-radius: 1em;
+        font-style: unset;
+        font-size: 1em;
+        padding: 0;
+        margin: 0;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+        margin-right: 0.25em;
+        font-weight: 600;
+      }
+
+      strong {
+        background-color: $highlight_yellow;
+        padding: 4px;
+      }
+
 
         max-width: 620px;
 
@@ -422,6 +445,27 @@
         @include mq(wide) {
             margin-left: 240px !important;
         }
+    }
+
+    & > p {
+        font-size: 18px;
+    }
+
+    & > h2 {
+    	font-family: "Guardian Headline", "Guardian Egyptian Web", Georgia;
+    	font-size: 28px;
+    	line-height: 32px;
+    	font-weight: 700;
+    	color: #333;
+    	margin-top: 36px;
+    	margin-bottom: 6px;
+
+      @include mq($until: desktop) {
+        font-size: 24px;
+        line-height: 28px;
+      }
+
+
     }
 
     .element--immersive {
@@ -440,6 +484,9 @@
       max-width: 860px;
 
     }
+
+
+}
 
     .ios, .android {
 

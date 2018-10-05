@@ -3,6 +3,9 @@ import * as d3Select from 'd3-selection'
 import * as d3geo from 'd3-geo'
 import * as topojson from 'topojson'
 import textures from 'textures'
+import grid from './grid'
+
+grid();
 
 let d3 = Object.assign({}, d3B, d3geo);
 
@@ -49,7 +52,7 @@ if(isMobile){
     interactiveTimeline.intContent.classList.add("mobile");
 
     flagPoint = 100;
-    
+
 }
 else
 {
@@ -86,7 +89,7 @@ function ready(arr)
     makeGrid();
 
     if(!isMobile)makeLocator(world);
-    
+
     window.requestAnimationFrame(step);
 
 }
@@ -140,7 +143,7 @@ function makeGrid()
             .text(pTime)
         }
 
-        
+
 
         let circle = g.append('circle')
         .attr('cx', padding.left)
@@ -148,7 +151,7 @@ function makeGrid()
         .attr('r', 7)
         .attr('class', 'time-spot t' + events[i].eventTime.getHours() + "-" + events[i].eventTime.getMinutes());
 
-        
+
     }
 }
 
@@ -240,7 +243,7 @@ function step()
             }
 
             printDescription(currentCircle);
-               
+
         }
     }
     else
@@ -336,8 +339,8 @@ function makeLocation(lon, lat)
     .attr('cy', mapProjetion([lon, lat])[1])
     .attr('r','7px')
     .style('fill', '#c70000')
-    .style('stroke-width', '3px') 
-    .style('stroke', '#FFFFFF'); 
+    .style('stroke-width', '3px')
+    .style('stroke', '#FFFFFF');
 }
 
 

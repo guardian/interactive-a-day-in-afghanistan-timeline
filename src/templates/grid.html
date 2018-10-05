@@ -1,0 +1,14 @@
+<div class='interactive-grid interactive-grid--{{weighting}}'>
+    {{#photos}}
+    <div class='image image--{{weighting}} image--{{heightWeighting}}'>
+        <div class="image__inner">
+            <picture>
+                <source media="(min-width: 700px)" srcset="{{url}}">
+                <source srcset="{{mobileUrl}}">
+                <img src="{{url}}" alt="">
+            </picture>
+        </div>
+    </div>
+    {{/photos}}
+    <div class="interactive-grid__caption"><span>{{caption}}</span></div>
+</div>

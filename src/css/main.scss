@@ -109,7 +109,7 @@
 
 .interactive-timeline{
 	margin-top: 10px !important;
-	margin-bottom: 70px;
+	margin-bottom: 410px;
 	float: left;
 	width:100%;
 	padding:0;
@@ -132,7 +132,6 @@
 	width:10px;
 	left:10px;
 	border-left:1px solid black;
-    border-bottom: 1px solid black;
 	&.mobile
 	{
 		left:10px;
@@ -151,7 +150,12 @@
 .hour{
 	width:100%;
 	height:400px;
+    
 }
+
+.d30{
+        height:5px;
+    }
 
 .int-content {
 	width:100%;
@@ -170,7 +174,8 @@
 .int-description{
 	position:absolute;
 	display:none;
-	padding: 10px;
+    padding: 10px;
+	padding-bottom: 30px;
     font-family: "Guardian Text Egyptian Web",Georgia,serif;
     font-size:14px;
     background: #FFFFFF;
@@ -180,8 +185,42 @@
     .content-text-wrapper{
         position: relative;
         float:left;
-        width:300px;
+        width:100%;
     }
+
+    .time-headline {
+        font-size: 36px;
+        line-height: 44px;
+        font-family: "Guardian Headline","Guardian Egyptian Web","Guardian Headline Full",Georgia,serif;
+        font-weight: 900;
+        transform: translate(0, 0);
+        stroke: white;
+        stroke-width: 4;
+        stroke-opacity: 0.7;
+        paint-order: stroke;
+    }
+
+    .content-text-wrapper p{
+        font-family: "Guardian Headline","Guardian Egyptian Web","Guardian Headline Full",Georgia,serif;
+        font-weight: 300;
+        font-size: 20px;
+        line-height: 26px;
+           
+    }
+
+    .counters-wrapper
+    {
+        position:relative;
+        display:flex;
+        float:right;
+        margin-top: -170px;
+    }
+
+    .counter{
+
+            border-left:1px solid black;
+            padding:0 0 2px 15px;
+        }
 
 	&.selected{
 		display:block;
@@ -189,16 +228,26 @@
 
     &.mobile{
         width: calc(100% - 22px);
-        height:350px;
+        height:370px;
         left:10px;
         top:60px;
         svg{
             display:none;
         }
         .content-text-wrapper{
-            width:225px;
+            width:100%;
             width: calc(100% - 70px);
             margin-left:5px;
+            position:relative;
+            float:left;
+        }
+
+        .content-text-wrapper p{
+            font-family: "Guardian Headline","Guardian Egyptian Web","Guardian Headline Full",Georgia,serif;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 22px;
+           
         }
 
         .int-description-time
@@ -210,11 +259,7 @@
             margin-left:5px;
             margin-right:5px;
         }
-        .content-text-wrapper
-        {
-            position:relative;
-            float:left;
-        }
+
         .counters-wrapper
         {
             display:flex;
@@ -222,10 +267,17 @@
             bottom:0px;
             right:2%;
         }
-        .counter{
 
-            border-left:1px solid black;
-            padding:0 0 2px 15px;
+        .time-headline {
+            font-size: 21px;
+            line-height: 26px;
+            font-family: "Guardian Headline","Guardian Egyptian Web","Guardian Headline Full",Georgia,serif;
+            font-weight: 900;
+            transform: translate(0, 0);
+            stroke: white;
+            stroke-width: 4;
+            stroke-opacity: 0.7;
+            paint-order: stroke;
         }
     }
 
@@ -265,7 +317,6 @@
     position:relative;
     float:left;
     margin-right:50px;
-    border: 1px solid red;
  }
 
  .int-description.mobile.selected svg
@@ -300,17 +351,7 @@
     color: #000000;
 }
 
-.time-headline {
-    font-size: 18px;
-    line-height: 28px;
-    font-family: "Guardian Headline","Guardian Egyptian Web","Guardian Headline Full",Georgia,serif;
-    font-weight: 900;
-    transform: translate(0, 0);
-    stroke: white;
-    stroke-width: 4;
-    stroke-opacity: 0.7;
-    paint-order: stroke;
-}
+
 
 .line {
 	stroke: #000000;
@@ -351,6 +392,11 @@
 
 .column.tline svg, .column.mobile svg{
 	overflow:visible;
+}
+
+
+.column.tline p{
+
 }
 
 
@@ -439,11 +485,19 @@
 
       max-width: 860px;
 
-    }
+    } 
+}
 
-    .ios, .android {
+.ios, .android {
 
         .int-description.mobile {
-        left: 20px;
-    }
+            left: 22px;
+            height: 390px;
+        }
+
+        .int-description.mobile .counter {
+            padding: 0px 20px 2px 15px;
+        }
 }
+
+

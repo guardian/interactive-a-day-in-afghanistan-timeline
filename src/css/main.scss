@@ -87,6 +87,10 @@
     float: left;
     @include fs-textSans(1);
     line-height: 28px;
+
+    @include mq(tablet) {
+      font-size: 14px;
+    }
 }
 
 
@@ -97,8 +101,12 @@
 
 .interactive-top-bar div .top-bar-deaths {
     @include fs-titlepiece(1);
-	font-size: 32px;
-	line-height: 28px;
+	  font-size: 32px;
+	  line-height: 28px;
+    @include mq(tablet) {
+      font-size: 48px;
+      line-height: 38px;
+    }
 }
 
 .interactive-top-bar div .top-bar-injured {

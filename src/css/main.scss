@@ -242,7 +242,7 @@
     &.mobile{
         width: calc(100% - 10px);
         height:420px;
-        left:10px;
+        left:20px;
         top:60px;
         svg{
             display:none;
@@ -297,15 +297,17 @@
     border-left:1px solid black;
 
     position:fixed;
-    width: calc(100% - 30px);
+    width: calc(100% - 40px);
 
     @include mq(mobileMedium) {
       width: calc(100% - 40px);
     }
+    @include mq(tablet) {
+        top: 80px;
+    }
 
     @include mq(desktop) {
         width:620px;
-        top: 80px;
         left: calc((100% - 980px)/2 + 30px);
     }
 
@@ -405,6 +407,10 @@
 .approx-time{
     width: 140px;
     margin-left: 10px;
+
+    &.mobile {
+    margin-left: 10px;
+    }
     @include mq(tablet) {
       margin-left: 12px;
     }

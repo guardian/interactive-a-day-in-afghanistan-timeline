@@ -149,7 +149,7 @@
 		left:10px;
 	}
   @include mq(desktop) {
-    left: calc((100% - 980px)/2 + 10px);
+    left: calc((100% - 980px)/2 + 30px);
   }
   @include mq(leftCol) {
       left: calc((100% - 1140px)/2 + 170px);
@@ -306,7 +306,7 @@
     @include mq(desktop) {
         width:620px;
         top: 80px;
-        left: calc((100% - 980px)/2 + 10px);
+        left: calc((100% - 980px)/2 + 30px);
     }
 
 
@@ -393,6 +393,7 @@
     }
   transform: translate(0px, 5px);
   @include mq(tablet) {
+    text-anchor: start;
     transform: translate(24px, 5px);
   }
   @include mq(leftCol) {
@@ -403,9 +404,12 @@
 
 .approx-time{
     width: 140px;
-    margin-left: -140px;
-    &.mobile{
-        margin-left: 10px;
+    margin-left: 10px;
+    @include mq(tablet) {
+      margin-left: 12px;
+    }
+    @include mq(leftCol) {
+      margin-left: -140px;
     }
 }
 

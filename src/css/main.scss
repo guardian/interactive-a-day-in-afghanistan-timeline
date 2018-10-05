@@ -148,6 +148,9 @@
 	{
 		left:10px;
 	}
+  @include mq(tablet) {
+      left: 90px;
+  }
   @include mq(desktop) {
     left: calc((100% - 980px)/2 + 120px);
   }
@@ -308,6 +311,8 @@
     }
     @include mq(tablet) {
         top: 80px;
+        width: calc(100% - 120px);
+        left: 110px;
     }
 
     @include mq(desktop) {
@@ -398,11 +403,11 @@
     text-anchor:start;
     }
   transform: translate(0px, 5px);
+  // @include mq(tablet) {
+  //   text-anchor: start;
+  //   transform: translate(24px, 5px);
+  // }
   @include mq(tablet) {
-    text-anchor: start;
-    transform: translate(24px, 5px);
-  }
-  @include mq(desktop) {
     text-anchor: end;
     transform: translate(-4px, 5px);
   }

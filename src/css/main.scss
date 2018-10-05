@@ -477,30 +477,6 @@
  .content__main-column--interactive {
     & > p, & > h2,& > ul,  .element-interactive,.element-atom {
 
-      em {
-
-        background-color: #c70000;
-        width: 1em;
-        height: 1em;
-        color: #fff;
-
-        border-radius: 1em;
-        font-style: unset;
-        font-size: 1em;
-        padding: 0;
-        margin: 0;
-        padding-left: 0.25em;
-        padding-right: 0.25em;
-        margin-right: 0.25em;
-        font-weight: 600;
-      }
-
-      strong {
-        background-color: $highlight_yellow;
-        padding: 4px;
-      }
-
-
         max-width: 620px;
 
         @include mq(leftCol) {

@@ -149,7 +149,7 @@
 		left:10px;
 	}
   @include mq(desktop) {
-    left: calc((100% - 980px)/2 + 30px);
+    left: calc((100% - 980px)/2 + 120px);
   }
   @include mq(leftCol) {
       left: calc((100% - 1140px)/2 + 170px);
@@ -240,13 +240,8 @@
 	}
 
     &.mobile{
-        width: calc(100% - 10px);
-        height:420px;
-        left:20px;
-        top:60px;
-        svg{
-            display:none;
-        }
+
+
 
         @include mq(mobileMedium) {
           width: calc(100% - 30px);
@@ -298,10 +293,15 @@
         }
     }
 
+    width: calc(100% - 10px);
+    height:420px;
+    left:20px;
+    top:60px;
+
     border-left:1px solid black;
 
     position:fixed;
-    width: calc(100% - 40px);
+    // width: calc(100% - 40px);
 
     @include mq(mobileMedium) {
       width: calc(100% - 40px);
@@ -312,7 +312,7 @@
 
     @include mq(desktop) {
         width:620px;
-        left: calc((100% - 980px)/2 + 30px);
+        left: calc((100% - 980px)/2 + 120px);
     }
 
 
@@ -402,10 +402,14 @@
     text-anchor: start;
     transform: translate(24px, 5px);
   }
-  @include mq(leftCol) {
+  @include mq(desktop) {
     text-anchor: end;
     transform: translate(-4px, 5px);
   }
+
+  // @include mq(leftCol) {
+  //   transform: translate(-4px, 5px);
+  // }
 }
 
 .approx-time{

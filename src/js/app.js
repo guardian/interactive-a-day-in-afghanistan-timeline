@@ -18,7 +18,8 @@ const topBar = {
 const interactiveTimeline = {
     "el": document.querySelector(".interactive-timeline"),
     "timeLine" : document.querySelector(".tline"),
-    "intContent" : document.querySelector(".int-content")
+    "intContent" : document.querySelector(".int-content"),
+    "approxTime" : document.querySelector(".approx-time")
 }
 
 
@@ -50,6 +51,7 @@ let worldUrl = "<%= path %>/assets/world-simple.json";
 if(isMobile){
     topBar.el.classList.add("mobile");
     interactiveTimeline.intContent.classList.add("mobile");
+    interactiveTimeline.approxTime.classList.add("mobile");
 
     flagPoint = 100;
 
@@ -124,7 +126,6 @@ function makeGrid()
         let hours = events[i].eventTime.getHours();
 
         let pTime =  prettyTime(hours, minutes);
-
 
         if(!isMobile)
         {

@@ -373,7 +373,7 @@
 .time-label{
 	font-family:'Guardian Text Sans Web', Arial, sans-serif;
 	font-size:14px;
-	fill: #333333;
+	fill: black;
     text-anchor:end;
     &.mobile{
     text-anchor:start;
@@ -386,6 +386,23 @@
     text-anchor: end;
     transform: translate(-4px, 5px);
   }
+}
+
+.approx-time{
+    width: 140px;
+    margin-left: -140px;
+    &.mobile{
+        margin-left: 10px;
+    }
+}
+
+.approx-time p{
+
+    font-family:'Guardian Text Sans Web', Arial, sans-serif;
+    font-size:14px;
+    fill: black;
+    width: 100%;
+    
 }
 
 

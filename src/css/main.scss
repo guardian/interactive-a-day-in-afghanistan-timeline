@@ -181,6 +181,7 @@
     background: #FFFFFF;
     border: 1px solid black;
     z-index:98;
+    box-sizing: border-box;
 
     .content-text-wrapper{
         position: relative;
@@ -572,13 +573,14 @@
     }
     &.interactive-grid--immersive {
         width: 100%;
-        @include mq(tablet) {
-            width: 1260px;
-        }
         @include mq(leftCol) {
             padding-top: 6px;
             padding-bottom: 6px;
             background-color: #fff;
+        }
+        @include mq(wide) {
+          width: 1280px
+          left: 10px;
         }
     }
 }
@@ -641,11 +643,14 @@
         @include mq(tablet) {
             margin-left: -20px;
         }
+        @include mq(wide) {
+            margin-left: -10px;
+        }
     }
-    @include mq($until: tablet) {
-        bottom: auto;
-        top: 24px;
-    }
+    // @include mq($until: tablet) {
+    //     bottom: auto;
+    //     top: 24px;
+    // }
 }
 
 .interactive-grid__caption span {

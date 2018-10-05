@@ -247,6 +247,10 @@
         svg{
             display:none;
         }
+
+        @include mq(mobileMedium) {
+          width: calc(100% - 30px);
+        }
         .content-text-wrapper{
             width:100%;
             width: calc(100% - 70px);
